@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+<title>Login</title>
+{% endblock %}
+
+{% block body %}
+<main class="form-signin w-50 m-auto">
+  {% with mensagem = get_flashed_messages() %}
+    {% if mensagem %}
+        <div class="alert alert-danger" role="alert">
+            {{ mensagem[0] }}
+        </div>
+    {% endif %}
+  {% endwith %}
+    <form method="post" action="{{url_for('auth.login')}}">
+      <h1 class="h3 mb-3 fw-normal">Login</h1>
+  
+      <div class="form-floating">
+        <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
+        <label for="floatingInput">Nome</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
+        <label for="floatingPassword">Senha</label>
+      </div>
+      <div class="text-start my-3">
+        <p>Não tem conta? <a href="{{ url_for('auth.registro')}}">Registre-se</a></p>
+      </div>
+      <button class="btn btn-primary w-100 py-2" type="submit">Fazer Login</button>
+    </form>
+</main>
+{% endblock %}

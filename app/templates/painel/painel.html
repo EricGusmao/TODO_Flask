@@ -1,0 +1,41 @@
+{% extends 'painel/base_painel.html' %}
+
+{% block head %}
+<title>Organizar Tarefas</title>
+{% endblock %}
+
+{% block body %}
+<div class="conteudo">
+    <h1>Organizar Tarefas</h1>
+    {% if tarefas|length < 1 %}
+        <h4>Não há tarefas. Crie uma abaixo!</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Tarefa</th>
+            <th>Adicionado</th>
+            <th>Ações</th>
+        </tr>
+        {% for tarefa in tarefas %}
+            <tr>
+                <td>{{ tarefa.conteudo }}</td>
+                <td>{{ tarefa.data_criacao.date() }}</td>
+                <td>
+                    <a href="{{ url_for('painel.apagar', id=tarefa.id) }}">Apagar</a>
+                    <br>
+                    <a href="{{ url_for('painel.atualizar', id=tarefa.id) }}">Atualizar</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <form action="{{ url_for('painel.criar') }}" method="post">
+        <input type="text" name="conteudo" id="conteudo">
+        <input type="submit" value="Adicionar Tarefa">
+    </form>
+    <form action="{{ url_for('auth.logout')}}">
+        <input type="submit" value="logout">
+    </form>
+</div>
+{% endblock %}
